@@ -20,8 +20,8 @@ public abstract class Piece {
     
     @Override
     public String toString(){
-        String symbol = String.valueOf(this.symbol);
-        switch(tag){
+        String symbol = String.valueOf(this.symbol); 
+        switch(tag){ // if the tag is black, the symbol should be lower case, if the tag is white it should be uppercase
             case BLACK:
                 return symbol.toLowerCase();
             case WHITE:
