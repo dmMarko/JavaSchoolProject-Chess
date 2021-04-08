@@ -25,19 +25,17 @@ public class Pawn extends Piece {
         }catch (IndexOutOfBoundsException e){
         }
 
-        int indexCounter = 2;
+        int spotsIndexCounter = 2;
         for (int side : Utilities.PLUS_MINUS) {
             try {
                 checkedSpot = new int[] {spot[0] + this.tag, spot[1] + side};
 
                 if (board[checkedSpot[0]][checkedSpot[1]].tag == -this.tag){
-                    spots[indexCounter] = checkedSpot;
+                    spots[spotsIndexCounter++] = checkedSpot;
                 }
             } catch (IndexOutOfBoundsException e) {
             }
-            indexCounter++;
         }
-
         return spots;
     }
 
