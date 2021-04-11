@@ -18,7 +18,7 @@ public class King extends Piece {
                     try {
                         checkedSpot = new int[] { spot[0] + v, spot[1] + h };
 
-                        if (board[checkedSpot[0]][checkedSpot[1]].tag != this.tag) {
+                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() != this.tag) {
                             spots[spotsIndexCounter++] = checkedSpot;
                         }
                     } catch (IndexOutOfBoundsException e) {

@@ -13,12 +13,12 @@ public class Pawn extends Piece {
 
         try{
             checkedSpot = new int[] {spot[0] + this.tag, spot[1]};
-            if (board[checkedSpot[0]][checkedSpot[1]].tag == EMPTY) {
+            if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) {
                 spots[0] = checkedSpot;
 
                 checkedSpot = new int[] {spot[0] + this.tag * 2, spot[1]};
 
-                if (!this.hasMoved && board[checkedSpot[0]][checkedSpot[1]].tag == EMPTY){
+                if (!this.hasMoved && board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY){
                     spots[1] = checkedSpot;
                 }
             }
@@ -30,7 +30,7 @@ public class Pawn extends Piece {
             try {
                 checkedSpot = new int[] {spot[0] + this.tag, spot[1] + side};
 
-                if (board[checkedSpot[0]][checkedSpot[1]].tag == -this.tag){
+                if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag){
                     spots[spotsIndexCounter++] = checkedSpot;
                 }
             } catch (IndexOutOfBoundsException e) {
