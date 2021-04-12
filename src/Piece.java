@@ -31,11 +31,15 @@ public abstract class Piece {
     }
 
     /**
-     * 
+     * this method sets the hasMoved variable to true
      **/
     public void moved(){
         hasMoved = true;
     }
-
+    /**
+     * this method calculates the piece's leagal moves
+     * @param spot - the piece's position
+     * @return all leagal spots the piece can move to
+     */
     public abstract int[][] getValidSpots(int[] spot);
 }
