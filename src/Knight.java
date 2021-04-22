@@ -2,7 +2,7 @@ public class Knight extends Piece {
 
     protected Knight(int tag, Board state) {
         super(tag, state);
-        symbol = 'n';
+        this.symbol = 'n';
     }
 
     @Override

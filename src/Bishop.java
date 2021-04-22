@@ -2,7 +2,7 @@ public class Bishop extends Piece{
 
     protected Bishop(int tag, Board state) {
         super(tag, state);
-        symbol = 'b';
+        this.symbol = 'b';
     }
 
     @Override

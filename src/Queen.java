@@ -2,7 +2,7 @@ public class Queen extends Piece {
 
     protected Queen(int tag, Board state) {
         super(tag, state);
-        symbol = 'q';
+        this.symbol = 'q';
     }
 
     @Override
