@@ -26,6 +26,8 @@ public abstract class Piece {
                 return symbol.toLowerCase();
             case WHITE:
                 return symbol.toUpperCase();
+            case EMPTY:
+                return symbol;
         }
         return "-"; //never gonna happen
     }

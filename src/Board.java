@@ -44,7 +44,7 @@ public class Board {
             rawBoard[1][column] = new Pawn(Piece.BLACK, this);
         }
 
-        for (int row = 2; row < 5; row++) {
+        for (int row = 2; row < 6; row++) {
             for (int column = 0; column < 8; column++) {
                 rawBoard[row][column] = EMPTY_PIECE;
             }
@@ -84,9 +84,9 @@ public class Board {
         boolean blackKingExists = false;
         for (Piece[] rows : rawBoard) {
             for (Piece checkedPiece : rows) {
-                if (checkedPiece.equals("k")) {
+                if (checkedPiece.toString().equals("k")) {
                     blackKingExists = true;
-                } else if (checkedPiece.equals("K")) {
+                } else if (checkedPiece.toString().equals("K")) {
                     whiteKingExists = true;
                 }
             }
@@ -111,24 +111,18 @@ public class Board {
 
     @Override
     public String toString() {
-        return "-----------------\n" + "|" + rawBoard[0][0] + "|" + rawBoard[0][1] + "|" + rawBoard[0][2] + "|"
-                + rawBoard[0][3] + "|" + rawBoard[0][4] + "|" + rawBoard[0][5] + "|" + rawBoard[0][6] + "|"
-                + rawBoard[0][7] + "\n" + "-----------------\n" + "|" + rawBoard[1][0] + "|" + rawBoard[1][1] + "|"
-                + rawBoard[1][2] + "|" + rawBoard[1][3] + "|" + rawBoard[1][4] + "|" + rawBoard[1][5] + "|"
-                + rawBoard[1][6] + "|" + rawBoard[1][7] + "\n" + "-----------------\n" + "|" + rawBoard[2][0] + "|"
-                + rawBoard[2][1] + "|" + rawBoard[2][2] + "|" + rawBoard[2][3] + "|" + rawBoard[2][4] + "|"
-                + rawBoard[2][5] + "|" + rawBoard[2][6] + "|" + rawBoard[2][7] + "\n" + "-----------------\n" + "|"
-                + rawBoard[3][0] + "|" + rawBoard[3][1] + "|" + rawBoard[3][2] + "|" + rawBoard[3][3] + "|"
-                + rawBoard[3][4] + "|" + rawBoard[3][5] + "|" + rawBoard[3][6] + "|" + rawBoard[3][7] + "\n"
-                + "-----------------\n" + "|" + rawBoard[4][0] + "|" + rawBoard[4][1] + "|" + rawBoard[4][2] + "|"
-                + rawBoard[4][3] + "|" + rawBoard[4][4] + "|" + rawBoard[4][5] + "|" + rawBoard[4][6] + "|"
-                + rawBoard[4][7] + "\n" + "-----------------\n" + "|" + rawBoard[5][0] + "|" + rawBoard[5][1] + "|"
-                + rawBoard[5][2] + "|" + rawBoard[5][3] + "|" + rawBoard[5][4] + "|" + rawBoard[5][5] + "|"
-                + rawBoard[5][6] + "|" + rawBoard[5][7] + "\n" + "-----------------\n" + "|" + rawBoard[6][0] + "|"
-                + rawBoard[6][1] + "|" + rawBoard[6][2] + "|" + rawBoard[6][3] + "|" + rawBoard[6][4] + "|"
-                + rawBoard[6][5] + "|" + rawBoard[6][6] + "|" + rawBoard[6][7] + "\n" + "-----------------\n" + "|"
-                + rawBoard[7][0] + "|" + rawBoard[7][1] + "|" + rawBoard[7][2] + "|" + rawBoard[7][3] + "|"
-                + rawBoard[7][4] + "|" + rawBoard[7][5] + "|" + rawBoard[7][6] + "|" + rawBoard[7][7] + "\n"
-                + "-----------------";
+        String returns = "";
+        int rowNum = 8;
+
+        for(Piece[] row : rawBoard){
+            returns += "\n  ---------------------------------\n" + rowNum--;
+            for(Piece nextPiece : row){
+                returns += " | " + nextPiece.toString();
+            }
+            returns += " |";
+        }
+        returns += "\n  ---------------------------------" + 
+                   "\n    A   B   C   D   E   F   G   H  \n";
+        return returns;
     }
 }
