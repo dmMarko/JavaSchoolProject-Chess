@@ -113,15 +113,14 @@ public class Board {
         String returns = "";
         int rowNum = 8;
 
-        for(Piece[] row : rawBoard){
+        for (Piece[] row : rawBoard) {
             returns += "\n  ---------------------------------\n" + rowNum--;
-            for(Piece nextPiece : row){
+            for (Piece nextPiece : row) {
                 returns += " | " + nextPiece.toString();
             }
             returns += " |";
         }
-        returns += "\n  ---------------------------------" + 
-                   "\n    A   B   C   D   E   F   G   H  \n";
+        returns += "\n  ---------------------------------" + "\n    A   B   C   D   E   F   G   H  \n";
         return returns;
     }
 }
