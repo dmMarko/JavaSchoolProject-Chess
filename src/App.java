@@ -38,8 +38,10 @@ public class App {
                         playerColourName + "’s turn, enter the position of the piece you want to move and the position you want to move it to (e2-e4 for example):");
 
             int[][] input;
-            boolean input_valid = true;
+            boolean input_valid;
             do {
+                input_valid = true;
+
                 input = InputManager.parseInput(inputGetter.nextLine());
 
                 if (input == null) {
@@ -53,7 +55,6 @@ public class App {
                     System.out.println("This piece cannot be moved to the desired location, please try another one");
                     input_valid = false;
                 }
-
             } while (!input_valid);
 
             gameBoard.movePieceFromTo(input[0], input[1]);
