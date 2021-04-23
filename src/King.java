@@ -14,14 +14,14 @@ public class King extends Piece {
         int spotsIndexCounter = 0;
         for (int h : Utilities.PLUS_ZERO_MINUS) { // check each direction (horizontal)
             for (int v : Utilities.PLUS_ZERO_MINUS) { // and each direction in that direction (vertical)
-                if (!(v == 0 && h == 0)) {
+                if (!(v == 0 && h == 0)) { // the king can't move to it's own spot
                     try {
-                        checkedSpot = new int[] { spot[0] + v, spot[1] + h }; 
+                        checkedSpot = new int[] { spot[0] + v, spot[1] + h }; // set next spot to check
 
-                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() != this.tag) {
+                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() != this.tag) { // a king can move to any existing square that doesn't contain a piece of the same colour
                             spots[spotsIndexCounter++] = checkedSpot;
                         }
-                    } catch (IndexOutOfBoundsException e) {
+                    } catch (IndexOutOfBoundsException e) { // the king can't go out of bounds
                     }
                 }
             }
