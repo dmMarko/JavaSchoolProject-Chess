@@ -12,9 +12,9 @@ public class Rook extends Piece {
      * @return all leagal spots the rook can move to
      */
     public int[][] getValidSpots(int[] spot) {
-        Piece[][] board = this.state.getRawBoard();
-        int[][] spots = new int[14][];
-        int[] checkedSpot;
+        Piece[][] board = this.state.getRawBoard(); // get the board as an array in order to not write state.getRawBoard() everytime
+        int[][] spots = new int[14][]; // the array that will be returned in the end
+        int[] checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
 
         // checking both direction for each axis
         int indexCounter = 0;
@@ -29,15 +29,11 @@ public class Rook extends Piece {
                         } else { // check the correct spot for vertical axis
                             checkedSpot = new int[] { spot[0] + counter * d, spot[1] };
                         }
-
                         if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) { // if checked spot is empty
                             spots[indexCounter++] = checkedSpot; // add spot to available spots
-
-                        } else if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag) { // if checked spot is
-                                                                                                  // foe
+                        } else if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag) { // if checked spot is foe
                             spots[indexCounter++] = checkedSpot; // add spot to avaliable spots
                             breakCondition = false; // break from the loop
-
                         } else { // if checked spot is the same color as this piece.
                             breakCondition = false; // break from the loop
                         }

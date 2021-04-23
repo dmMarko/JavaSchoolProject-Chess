@@ -14,7 +14,7 @@ public class Bishop extends Piece {
     public int[][] getValidSpots(int[] spot) {
         Piece[][] board = this.state.getRawBoard(); // get the board as an array in order to not write state.getRawBoard() everytime
         int[][] spots = new int[13][]; // the array that will be returned in the end
-        int[] checkedSpot;
+        int[] checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
 
         int indexCounter = 0;
 
@@ -29,12 +29,10 @@ public class Bishop extends Piece {
                         } else if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag) { // if spots is foe
                             spots[indexCounter++] = checkedSpot; // add to available spots
                             throw new IndexOutOfBoundsException("reached a piece of opposite colour"); // break from the
-                                                                                                       // current
-                                                                                                       // diagonal
+                                                                                                       // current diagonal
                         } else {
                             throw new IndexOutOfBoundsException("reached a piece of the same colour"); // break from the
-                                                                                                       // current
-                                                                                                       // diagonal
+                                                                                                       // current diagonal
                         }
                     }
                 } catch (IndexOutOfBoundsException e) { // if checked spot out of bounds just skip it
