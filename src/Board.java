@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-/*
+/* board starting state:
 -----------------
 |r|n|b|q|k|b|n|r|
 -----------------
@@ -20,9 +20,11 @@ import java.util.Arrays;
 -----------------
 */
 public class Board {
-    private Piece[][] rawBoard;
-    private final Empty EMPTY_PIECE = new Empty(this);
-    private int turnCounter;
+    private Piece[][] rawBoard; // the board itself, the thing that contains the pieces
+    private final Empty EMPTY_PIECE = new Empty(this); // because all empty pieces are the same all the time,
+                                                       // instead of creating countless empty pieces,
+                                                       // we create one and point to it everytime we want to add an empty piece
+    private int turnCounter; // counts the turns
 
     public Board() {
         turnCounter = 0;
