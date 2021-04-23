@@ -4,6 +4,7 @@ public class Pawn extends Piece {
         super(tag, state);
         this.symbol = 'p';
     }
+    
     /**
      * this method calculates the pawn's leagal moves
      * @param spot - the pawn's position
