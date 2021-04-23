@@ -23,17 +23,19 @@ public class Board {
     private Piece[][] rawBoard; // the board itself, the thing that contains the pieces
     private final Empty EMPTY_PIECE = new Empty(this); // because all empty pieces are the same all the time,
                                                        // instead of creating countless empty pieces,
-                                                       // we create one and point to it everytime we want to add an empty piece
+                                                       // we create one and point to it everytime we want to add an
+                                                       // empty piece
     private int turnCounter; // counts the turns
 
+    /**
+     * initializes the turn counter and the board itself with the pieces.
+     */
     public Board() {
-        turnCounter = 0;
+        turnCounter = 0; // initialize the counter to zero
 
-        rawBoard = new Piece[8][8];
-        for (int row = 0; row < rawBoard.length; row++) {
-            rawBoard[row] = new Piece[8];
-        }
+        rawBoard = new Piece[8][8]; // creating the board array
 
+        // black's first line
         rawBoard[0][0] = new Rook(Piece.BLACK, this);
         rawBoard[0][1] = new Knight(Piece.BLACK, this);
         rawBoard[0][2] = new Bishop(Piece.BLACK, this);
@@ -43,20 +45,24 @@ public class Board {
         rawBoard[0][6] = new Knight(Piece.BLACK, this);
         rawBoard[0][7] = new Rook(Piece.BLACK, this);
 
+        // black's second line of pawns
         for (int column = 0; column < rawBoard[1].length; column++) {
             rawBoard[1][column] = new Pawn(Piece.BLACK, this);
         }
 
+        // the empty spots of the board
         for (int row = 2; row < 6; row++) {
             for (int column = 0; column < 8; column++) {
                 rawBoard[row][column] = EMPTY_PIECE;
             }
         }
 
+        // white's second line
         for (int column = 0; column < rawBoard[6].length; column++) {
             rawBoard[6][column] = new Pawn(Piece.WHITE, this);
         }
 
+        // white's first line
         rawBoard[7][0] = new Rook(Piece.WHITE, this);
         rawBoard[7][1] = new Knight(Piece.WHITE, this);
         rawBoard[7][2] = new Bishop(Piece.WHITE, this);
@@ -67,8 +73,18 @@ public class Board {
         rawBoard[7][7] = new Rook(Piece.WHITE, this);
     }
 
+    /**
+     * the method checks if a piece in a certein spot can move to another spot
+     * 
+     * @param piecePos - the current position of the piece
+     * @param nextPos  - the desired position of the piece
+     * @return - whether the move is legal.
+     */
     public boolean canMoveFromTo(int[] piecePos, int[] nextPos) {
-        int[][] avaliableSpots = rawBoard[piecePos[0]][piecePos[1]].getValidSpots(piecePos);
+        int[][] avaliableSpots = rawBoard[piecePos[0]][piecePos[1]].getValidSpots(piecePos); // get the available spots
+                                                                                             // of the piece
+        // return true if the desired spot is within the available ones. else returns
+        // false.
         for (int[] spot : avaliableSpots) {
             if (Arrays.equals(spot, nextPos)) {
                 return true;
@@ -77,25 +93,39 @@ public class Board {
         return false;
     }
 
+    /**
+     * moves a piece to a location in the board.
+     * 
+     * @param piecePos - the piece's coord to move
+     * @param nextPos  - the desired spot
+     */
     public void movePieceFromTo(int[] piecePos, int[] nextPos) {
-        rawBoard[nextPos[0]][nextPos[1]] = rawBoard[piecePos[0]][piecePos[1]];
-        rawBoard[piecePos[0]][piecePos[1]] = EMPTY_PIECE;
-        rawBoard[nextPos[0]][nextPos[1]].moved();
+        rawBoard[nextPos[0]][nextPos[1]] = rawBoard[piecePos[0]][piecePos[1]]; // moves piece to desired location
+        rawBoard[piecePos[0]][piecePos[1]] = EMPTY_PIECE; // emptys the original spot
+        rawBoard[nextPos[0]][nextPos[1]].moved(); // changing the piece's 'hasMoved' attribute to true.
     }
 
-    public boolean didWin() {
-        boolean whiteKingExists = false;
-        boolean blackKingExists = false;
-        for (Piece[] rows : rawBoard) {
-            for (Piece checkedPiece : rows) {
-                if (checkedPiece.toString().equals("k")) {
-                    blackKingExists = true;
-                } else if (checkedPiece.toString().equals("K")) {
-                    whiteKingExists = true;
-                }
+    /**
+     * checks whether the given player won the game.
+     * 
+     * @param turn - the player to check
+     * @return - whether the given player won or not
+     */
+    public boolean didWin(int turn) {
+        boolean found_king = false;
+        String symbol = (turn == Piece.WHITE) ? "k" : "K"; // if turn is white search for black king, and vice versa
+
+        // iterate through the board and check every piece
+        for (Piece[] row : rawBoard) {
+            for (Piece piece : row) {
+                if (piece.toString().equals(symbol))
+                    found_king = true;
             }
         }
-        return !(blackKingExists && whiteKingExists);
+
+        // if the king not found, the player won the game
+        return !found_king;
+
     }
 
     public int getTurnCounter() {
@@ -111,7 +141,7 @@ public class Board {
     }
 
     @Override
-    public String toString() {
+    public String toString() { // board's string representation
         String returns = "";
         int rowNum = 8;
 
