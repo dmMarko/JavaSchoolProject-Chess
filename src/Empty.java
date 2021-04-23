@@ -7,7 +7,7 @@ public class Empty extends Piece{
 
     @Override
     public int[][] getValidSpots(int[] spot) {
-        return null;
+        return new int[][]{};
     }
     
 }

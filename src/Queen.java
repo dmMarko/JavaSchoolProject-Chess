@@ -18,20 +18,25 @@ public class Queen extends Piece {
             for (int d : Utilities.PLUS_MINUS) {
                 boolean breakCondition = true;
                 int counter = 1;
-                while (breakCondition) {
-                    if (axis == 0) {
-                        checkedSpot = new int[] { spot[0], spot[1] + counter * d };
-                    } else {
-                        checkedSpot = new int[] { spot[0] + counter * d, spot[1] };
-                    }
-                    if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) {
-                        spots[indexCounter++] = checkedSpot;
-                    } else if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag) {
-                        spots[indexCounter++] = checkedSpot;
+                while(breakCondition){
+                    try{
+                        if(axis == 0){
+                            checkedSpot = new int[]{spot[0], spot[1]+counter*d};
+                        } else {
+                            checkedSpot = new int[]{spot[0]+counter*d, spot[1]};
+                        }
+                        if(board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY){
+                            spots[indexCounter++] = checkedSpot;
+                        } else if(board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag){
+                            spots[indexCounter++] = checkedSpot;
+                            breakCondition = false;
+                        } else {
+                            breakCondition = false;
+                        }
+                    }catch(IndexOutOfBoundsException e){
                         breakCondition = false;
-                    } else {
-                        breakCondition = false;
                     }
+                    counter++;
                 }
             }
         }

@@ -75,7 +75,7 @@ public class Board {
         return false;
     }
 
-    public void movePiece(int[] piecePos, int[] nextPos) {
+    public void movePieceFromTo(int[] piecePos, int[] nextPos) {
         rawBoard[nextPos[0]][nextPos[1]] = rawBoard[piecePos[0]][piecePos[1]];
         rawBoard[piecePos[0]][piecePos[1]] = EMPTY_PIECE;
         rawBoard[nextPos[0]][nextPos[1]].moved();
