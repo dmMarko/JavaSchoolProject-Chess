@@ -13,7 +13,7 @@ public class App {
                 input = inputGetter.nextLine().toLowerCase(); // get the input
             }
             if(input.equals("rules")){ // if the user wanted the rules, give him the rules
-                System.out.println(Utilities.RULES_TEXT); // print the rules
+                System.out.println(Utilities.RULES_TEXT); // print the
             }
         }
     }

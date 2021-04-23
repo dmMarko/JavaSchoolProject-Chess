@@ -13,7 +13,7 @@ public class Rook extends Piece {
      */
     public int[][] getValidSpots(int[] spot) {
         Piece[][] board = this.state.getRawBoard();
-        int[][] spots = new int[14][2];
+        int[][] spots = new int[14][];
         int[] checkedSpot;
 
         // checking both direction for each axis

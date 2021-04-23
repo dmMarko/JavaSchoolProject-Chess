@@ -12,8 +12,8 @@ public class Bishop extends Piece {
      * @return all leagal spots the bishop can move to
      */
     public int[][] getValidSpots(int[] spot) {
-        Piece[][] board = this.state.getRawBoard();
-        int[][] spots = new int[13][2];
+        Piece[][] board = this.state.getRawBoard(); // get the board as an array in order to not write state.getRawBoard() everytime
+        int[][] spots = new int[13][]; // the array that will be returned in the end
         int[] checkedSpot;
 
         int indexCounter = 0;

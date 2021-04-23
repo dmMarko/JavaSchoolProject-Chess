@@ -8,7 +8,7 @@ public class King extends Piece {
     @Override
     public int[][] getValidSpots(int[] spot) {
         Piece[][] board = this.state.getRawBoard();
-        int[][] spots = new int[9][2];
+        int[][] spots = new int[9][];
         int[] checkedSpot;
 
         int spotsIndexCounter = 0;
