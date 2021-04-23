@@ -1,3 +1,4 @@
+import java.util.Arrays;
 
 /*
 -----------------
@@ -67,7 +68,7 @@ public class Board {
     public boolean canMoveFromTo(int[] piecePos, int[] nextPos) {
         int[][] avaliableSpots = rawBoard[piecePos[0]][piecePos[1]].getValidSpots(piecePos);
         for (int[] spot : avaliableSpots) {
-            if (nextPos.equals(spot)) {
+            if (Arrays.equals(spot, nextPos)) {
                 return true;
             }
         }
@@ -77,6 +78,7 @@ public class Board {
     public void movePiece(int[] piecePos, int[] nextPos) {
         rawBoard[nextPos[0]][nextPos[1]] = rawBoard[piecePos[0]][piecePos[1]];
         rawBoard[piecePos[0]][piecePos[1]] = EMPTY_PIECE;
+        rawBoard[nextPos[0]][nextPos[1]].moved();
     }
 
     public boolean didWin() {
@@ -91,10 +93,7 @@ public class Board {
                 }
             }
         }
-        if (blackKingExists && whiteKingExists) {
-            return false;
-        }
-        return true;
+        return !(blackKingExists && whiteKingExists);
     }
 
     public int getTurnCounter() {
