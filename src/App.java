@@ -31,9 +31,13 @@ public class App {
     public static void game() {
         Board gameBoard = new Board(); // new board instance
         boolean gameOver = false; // decides when the game is over
+        boolean offeredDraw = false; // whether the other player offered a draw last turn 
+        boolean offeredDrawThisTurn = false; // whether the other player offered a draw this turn 
 
         while (!gameOver) { // if the game is not over the game goes on
             System.out.println(gameBoard); // print the board
+
+            offeredDrawThisTurn = false;
             int turnColour = (gameBoard.getTurnCounter() & 1) == 0 ? Piece.WHITE : Piece.BLACK; // get the current
                                                                                                 // player
             String playerColourName = turnColour == Piece.WHITE ? "White" : "Black"; // string form
@@ -51,11 +55,22 @@ public class App {
                 input_valid = true;
 
                 rawInput = inputGetter.nextLine(); // input from the user
-                input = !rawInput.toLowerCase().equals("resign") ? InputManager.parseInput(rawInput) : null; // if the player doesn't resign, parse the input
+                input = !(rawInput.toLowerCase().equals("resign") || rawInput.toLowerCase().equals("draw")) ? InputManager.parseInput(rawInput) : null; // if the player doesn't resign, parse the input
 
-                if (rawInput.equals("resign")){ // if the player resigned, don't check the input
+                if(rawInput.toLowerCase().equals("draw") && !offeredDraw){ // if the player has offered a draw
+                    System.out.println("you have offered a draw. please enter where you'd like to move"); // print draw offer message
+                    offeredDraw = true; // offer a draw
+                    offeredDrawThisTurn = true;
+                    input_valid = false; // and move in case the other player doesn't draw
+                } else if(rawInput.toLowerCase().equals("draw")){ // if the player has accepted the draw
+                    System.out.println(gameBoard); // print the board for the final time
                     gameOver = true; // end the game
-                    System.out.println(playerColourName + " has resigned!"); // and print a resignation message
+                    System.out.println("Both players agreed to draw!"); // print draw message
+                } else if (rawInput.toLowerCase().equals("resign")){ // if the player resigned
+                    gameOver = true; // end the game
+                    System.out.println(gameBoard); // print the board for the final time
+                     // and print a resignation message
+                    System.out.println(playerColourName + " has resigned after " + ((gameBoard.getTurnCounter()+2)>>1) + " turns!");
                 } else if (input == null) { // check if the syntax matches the format
                     System.out.println("This position is invalid, please enter a valid position in the right format");
                     input_valid = false; // invalid input
@@ -73,18 +88,22 @@ public class App {
             } while (!input_valid);
 
             if(!gameOver){ // if the game didn't end yet, don't continue
+                if(!offeredDrawThisTurn){
+                    offeredDraw = false;
+                }
                 // move piece to new location
                 gameBoard.movePieceFromTo(input[0], input[1]);
+
+                // check if the player won the game
+                if (gameBoard.didWin(turnColour)) {
+                    gameOver = true; // end the game
+                    System.out.println(gameBoard); // print the board for the final time
+                    System.out.println(playerColourName + " won in " + ((gameBoard.getTurnCounter()+2)>>1) + " turns!"); // print win message
+                }
 
                 // increase the turn counter
                 gameBoard.setTurnCounter(gameBoard.getTurnCounter() + 1); // gameBoard.turnCounter++
 
-                // check if the player won the game
-                if (gameBoard.didWin(turnColour)) {
-                    gameOver = true;
-                    System.out.println(gameBoard); // print the board for the final time
-                    System.out.println(playerColourName + " won in " + ((gameBoard.getTurnCounter()+1)>>1) + " turns!");
-                }
             }
         }
     }
