@@ -45,6 +45,9 @@ public class App {
             // print input message
             System.out.println(playerColourName
                     + "’s turn, enter the position of the piece you want to move and the position you want to move it to (e2-e4 for example):");
+            if(offeredDraw){
+                System.out.println("you also have a draw offer, type “draw” in order to accept");
+            }
 
             String rawInput; //the variable that will get the raw input, used to enable the user to enter non move commands
             int[][] input; // the variable that will contain the input, it should be a 2x2 2d array (two spots)
@@ -58,7 +61,7 @@ public class App {
                 input = !(rawInput.toLowerCase().equals("resign") || rawInput.toLowerCase().equals("draw")) ? InputManager.parseInput(rawInput) : null; // if the player doesn't resign, parse the input
 
                 if(rawInput.toLowerCase().equals("draw") && !offeredDraw){ // if the player has offered a draw
-                    System.out.println("you have offered a draw. please enter where you'd like to move"); // print draw offer message
+                    System.out.println("a draw offer will be sent during your opponent's next turn. please enter where you'd like to move"); // print draw offer message
                     offeredDraw = true; // offer a draw
                     offeredDrawThisTurn = true;
                     input_valid = false; // and move in case the other player doesn't draw
