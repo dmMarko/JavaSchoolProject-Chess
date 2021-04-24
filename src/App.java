@@ -42,40 +42,49 @@ public class App {
             System.out.println(playerColourName
                     + "’s turn, enter the position of the piece you want to move and the position you want to move it to (e2-e4 for example):");
 
-            int[][] input;
-            boolean input_valid;
+            String rawInput; //the variable that will get the raw input, used to enable the user to enter non move commands
+            int[][] input; // the variable that will contain the input, it should be a 2x2 2d array (two spots)
 
             // loop until the user input is syntax-valid and rules-valid
+            boolean input_valid;
             do {
                 input_valid = true;
 
-                input = InputManager.parseInput(inputGetter.nextLine()); // input from the user
+                rawInput = inputGetter.nextLine(); // input from the user
+                input = !rawInput.toLowerCase().equals("resign") ? InputManager.parseInput(rawInput) : null; // if the player doesn't resign, parse the input
 
-                if (input == null) { // check syntax
+                if (rawInput.equals("resign")){ // if the player resigned, don't check the input
+                    gameOver = true; // end the game
+                    System.out.println(playerColourName + " has resigned!"); // and print a resignation message
+                } else if (input == null) { // check if the syntax matches the format
                     System.out.println("This position is invalid, please enter a valid position in the right format");
                     input_valid = false; // invalid input
-                } else if (gameBoard.getRawBoard()[input[0][0]][input[0][1]].getTag() != turnColour) { // check if empty
-                                                                                                       // or foe's spot
+                } else if (gameBoard.getRawBoard()[input[0][0]][input[0][1]].getTag() != turnColour) { // check if the player
+                                                                                                       // didn't picked a 
+                                                                                                       // piece of their 
+                                                                                                       // own colour
                     System.out.println(
                             "the spot you are trying to move form does not contain a piece of your colour, please try another spot");
                     input_valid = false; // invalid input
-                } else if (!gameBoard.canMoveFromTo(input[0], input[1])) { // check if can move to this spot
+                } else if (!gameBoard.canMoveFromTo(input[0], input[1])) { // check if the selsected piece can move to the selected spot
                     System.out.println("This piece cannot be moved to the desired location, please try another one");
                     input_valid = false; // invalid input
                 }
             } while (!input_valid);
 
-            // move piece to new location
-            gameBoard.movePieceFromTo(input[0], input[1]);
+            if(!gameOver){ // if the game didn't end yet, don't continue
+                // move piece to new location
+                gameBoard.movePieceFromTo(input[0], input[1]);
 
-            // increase the turn counter
-            gameBoard.setTurnCounter(gameBoard.getTurnCounter() + 1); // gameBoard.turnCounter++
+                // increase the turn counter
+                gameBoard.setTurnCounter(gameBoard.getTurnCounter() + 1); // gameBoard.turnCounter++
 
-            // check if the player won the game
-            if (gameBoard.didWin(turnColour)) {
-                gameOver = true;
-                System.out.println(gameBoard); // print the board for the final time
-                System.out.println(playerColourName + " won in " + ((gameBoard.getTurnCounter()+1)>>1) + " turns!");
+                // check if the player won the game
+                if (gameBoard.didWin(turnColour)) {
+                    gameOver = true;
+                    System.out.println(gameBoard); // print the board for the final time
+                    System.out.println(playerColourName + " won in " + ((gameBoard.getTurnCounter()+1)>>1) + " turns!");
+                }
             }
         }
     }
