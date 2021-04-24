@@ -40,7 +40,7 @@ public class App {
             offeredDrawThisTurn = false;
             int turnColour = (gameBoard.getTurnCounter() & 1) == 0 ? Piece.WHITE : Piece.BLACK; // get the current player
             String playerColourName = turnColour == Piece.WHITE ? "White" : "Black"; // string form
-            int firstRow = turnColour == Piece.WHITE ? 7 : 0; // the first row (with the king and rook etc) depends
+            int firstRow = turnColour == Piece.WHITE ? 7 : 0; // the first row (with the king and rook etc) depends on the colour
 
             // print input message
             System.out.println(playerColourName
@@ -102,7 +102,6 @@ public class App {
                     offeredDraw = false;
                 }
 
-                // on the colour
                 // custom rook movement in case of castling
                 if (gameBoard.getRawBoard()[input[0][0]][input[0][1]].getClass() == King.class
                         && input[1][0] == firstRow) { // if the moved piece is king and targets its row
@@ -117,6 +116,8 @@ public class App {
 
                 // move piece to new location
                 gameBoard.movePieceFromTo(input[0], input[1]);
+
+                gameBoard.promote(); // promote all pawns on the edges
 
                 // check if the player won the game
                 if (gameBoard.didWin(turnColour)) {

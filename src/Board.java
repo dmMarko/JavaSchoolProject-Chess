@@ -128,6 +128,19 @@ public class Board {
 
     }
 
+    /**
+     * when a pawn reaches the end of the board, it gets promoted to a queen
+     */
+    public void promote(){
+        for (int row : new int[]{0, 7}){ //check both sides
+            for (int column = 0; column < 8; column++){ //check all column in each side
+                if (rawBoard[row][column].getClass() == Pawn.class){ // if checked spot is a pawn
+                    rawBoard[row][column] = new Queen(rawBoard[row][column].getTag(), this); // make the pawn a queen
+                }
+            }
+        }
+    }
+
     public int getTurnCounter() {
         return this.turnCounter;
     }
