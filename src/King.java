@@ -26,6 +26,23 @@ public class King extends Piece {
                 }
             }
         }
+
+        int firstRow = this.tag == WHITE ? 7 : 0; // the first row (with the king and rook etc) depends on the colour
+        if (!this.hasMoved) { // if the king didn't move
+
+            // check left castling
+            if (!board[firstRow][7].hasMoved && board[firstRow][6].getTag() == EMPTY
+                    && board[firstRow][5].getTag() == EMPTY) {
+                spots[spotsIndexCounter++] = new int[] { firstRow, 6 };
+            }
+
+            // check right castling
+            if (!board[firstRow][0].hasMoved && board[firstRow][1].getTag() == EMPTY
+                    && board[firstRow][2].getTag() == EMPTY && board[firstRow][3].getTag() == EMPTY) {
+                spots[spotsIndexCounter++] = new int[] { firstRow, 2 };
+            }
+        }
+
         return spots;
     }
 
