@@ -47,4 +47,17 @@ public class Pawn extends Piece {
         return spots;
     }
 
+    @Override
+    public String toString(){
+        String symbol = String.valueOf(this.symbol); 
+        switch(tag){ // if the tag is black, the symbol should be lower case, if the tag is white it should be uppercase
+            case BLACK:
+                return "δ";
+            case WHITE:
+                return "P";
+            case EMPTY:
+                return symbol;
+        }
+        return "-"; //never gonna happen
+    }
 }

@@ -10,7 +10,7 @@ public class App {
         String input = ""; // the string that saves the user's input
 
         while (!input.equals("play")) { // the game only starts when the user wants to play
-            System.out.println("Welcom to chess for 2 \ntype “play” or “rules”"); // welcome message
+            System.out.println("Welcom to chess for 2 \ntype \"play\" or \"rules\""); // welcome message
             input = inputGetter.nextLine().toLowerCase(); // get the input
 
             while (!(input.equals("play") || input.equals("rules"))) { // try again if the input wasn't valid
@@ -44,9 +44,9 @@ public class App {
 
             // print input message
             System.out.println(playerColourName
-                    + "’s turn, enter the position of the piece you want to move and the position you want to move it to (e2-e4 for example):");
+                    + "'s turn, enter the position of the piece you want to move and the position you want to move it to (e2-e4 for example):");
             if (offeredDraw) {
-                System.out.println("you also have a draw offer, type “draw” in order to accept, ignore to regect");
+                System.out.println("you also have a draw offer, type \"draw\" in order to accept, ignore to regect");
             }
 
             String rawInput; // the variable that will get the raw input, used to enable the user to enter
