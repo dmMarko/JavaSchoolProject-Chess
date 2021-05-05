@@ -27,19 +27,19 @@ public class King extends Piece {
             }
         }
 
-        int firstRow = this.tag == WHITE ? 7 : 0; // the first row (with the king and rook etc) depends on the colour
+        int firstRow = this.tag == WHITE ? Utilities.WHITE_FIRST_ROW : Utilities.BLACK_FIRST_ROW; // the first row (with the king and rook etc) depends on the colour
         if (!this.hasMoved) { // if the king didn't move
 
-            // check left castling
-            if (!board[firstRow][7].hasMoved && board[firstRow][6].getTag() == EMPTY
+            // check short castling
+            if (!board[firstRow][Utilities.KINGSIDE_ROOK_COLUMN].hasMoved && board[firstRow][6].getTag() == EMPTY
                     && board[firstRow][5].getTag() == EMPTY) {
-                spots[spotsIndexCounter++] = new int[] { firstRow, 6 };
+                spots[spotsIndexCounter++] = new int[] { firstRow, Utilities.SHORT_CASTLE_KING_DEST };
             }
 
-            // check right castling
-            if (!board[firstRow][0].hasMoved && board[firstRow][1].getTag() == EMPTY
+            // check long castling
+            if (!board[firstRow][Utilities.QUEENSIDE_ROOK_COLUMN].hasMoved && board[firstRow][1].getTag() == EMPTY
                     && board[firstRow][2].getTag() == EMPTY && board[firstRow][3].getTag() == EMPTY) {
-                spots[spotsIndexCounter++] = new int[] { firstRow, 2 };
+                spots[spotsIndexCounter++] = new int[] { firstRow, Utilities.LONG_CASTLE_KING_DEST };
             }
         }
 
