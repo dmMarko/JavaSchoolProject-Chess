@@ -27,11 +27,8 @@ public class Board {
                                                        // empty piece
     private int turnCounter; // counts the turns
 
-    /**
-     * initializes the turn counter and the board itself with the pieces.
-     */
     public Board() {
-        turnCounter = 0; // initialize the counter to zero
+        turnCounter = 0;
 
         rawBoard = new Piece[8][8]; // creating the board array
 
@@ -81,10 +78,8 @@ public class Board {
      * @return - whether the move is legal.
      */
     public boolean canMoveFromTo(int[] piecePos, int[] nextPos) {
-        int[][] avaliableSpots = rawBoard[piecePos[0]][piecePos[1]].getValidSpots(piecePos); // get the available spots
-                                                                                             // of the piece
-        // return true if the desired spot is within the available ones. else returns
-        // false.
+        int[][] avaliableSpots = rawBoard[piecePos[0]][piecePos[1]].getValidSpots(piecePos);
+    
         for (int[] spot : avaliableSpots) {
             if (Arrays.equals(spot, nextPos)) {
                 return true;
@@ -113,7 +108,8 @@ public class Board {
      */
     public boolean didWin(int turn) {
         boolean found_king = false;
-        String symbol = (turn == Piece.WHITE) ? "k" : "K"; // if turn is white search for black king, and vice versa
+        // if turn is white search for black king, and vice versa
+        String symbol = (turn == Piece.WHITE) ? Character.toString(King.KING_SYMBOL).toLowerCase() : Character.toString(King.KING_SYMBOL).toUpperCase();
 
         // iterate through the board and check every piece
         for (Piece[] row : rawBoard) {
@@ -123,7 +119,7 @@ public class Board {
             }
         }
 
-        // if the king not found, the player won the game
+        // if the king wasn't found, the player won the game
         return !found_king;
 
     }
@@ -132,9 +128,9 @@ public class Board {
      * when a pawn reaches the end of the board, it gets promoted to a queen
      */
     public void promote(){
-        for (int row : new int[]{0, 7}){ //check both sides
-            for (int column = 0; column < 8; column++){ //check all column in each side
-                if (rawBoard[row][column].getClass() == Pawn.class){ // if checked spot is a pawn
+        for (int row : new int[]{Constants.BLACK_FIRST_ROW, Constants.WHITE_FIRST_ROW}){ //check both sides
+            for (int column = 0; column < 8; column++){ //check all columns in each side
+                if (rawBoard[row][column] instanceof Pawn){ 
                     rawBoard[row][column] = new Queen(rawBoard[row][column].getTag(), this); // make the pawn a queen
                 }
             }
@@ -154,7 +150,7 @@ public class Board {
     }
 
     @Override
-    public String toString() { // board's string representation
+    public String toString() {
         String returns = "";
         int rowNum = 8;
 

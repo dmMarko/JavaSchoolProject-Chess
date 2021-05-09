@@ -1,4 +1,4 @@
-public class Utilities {
+public class Constants {
     public static final int[] PLUS_MINUS = { +1, -1 }; // an array containing plus and minus, used to check both sides
 
     public static final int[] AXIS_ITER = { 0, 1 }; // an array containing zero and one, decide stuff

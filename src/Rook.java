@@ -16,31 +16,30 @@ public class Rook extends Piece {
         int[][] spots = new int[14][]; // the array that will be returned in the end
         int[] checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
 
-        // checking both direction for each axis
         int indexCounter = 0;
-        for (int axis : Utilities.AXIS_ITER) { // x axis, y axis
-            for (int d : Utilities.PLUS_MINUS) { // negative direction, positive direction
+        for (int axis : Constants.AXIS_ITER) {
+            for (int direction : Constants.PLUS_MINUS) {
                 boolean breakCondition = true;
-                int counter = 1; // index of the checked spot
+                int spotCounter = 1; // the index of the checked spot in the current direction
                 while (breakCondition) {
                     try {
                         if (axis == 0) { // check the correct spot for horizontal axis
-                            checkedSpot = new int[] { spot[0], spot[1] + counter * d };
+                            checkedSpot = new int[] { spot[0], spot[1] + spotCounter * direction };
                         } else { // check the correct spot for vertical axis
-                            checkedSpot = new int[] { spot[0] + counter * d, spot[1] };
+                            checkedSpot = new int[] { spot[0] + spotCounter * direction, spot[1] };
                         }
-                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) { // if checked spot is empty
-                            spots[indexCounter++] = checkedSpot; // add spot to available spots
+                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) {
+                            spots[indexCounter++] = checkedSpot;
                         } else if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag) { // if checked spot is foe
-                            spots[indexCounter++] = checkedSpot; // add spot to avaliable spots
-                            breakCondition = false; // break from the loop
+                            spots[indexCounter++] = checkedSpot;
+                            breakCondition = false;
                         } else { // if checked spot is the same color as this piece.
-                            breakCondition = false; // break from the loop
+                            breakCondition = false;
                         }
                     } catch (IndexOutOfBoundsException e) { // if checked spot out of bounds break
                         breakCondition = false;
                     }
-                    counter++;
+                    spotCounter++;
                 }
             }
         }

@@ -18,21 +18,18 @@ public class Bishop extends Piece {
 
         int indexCounter = 0;
 
-        // checking 4 diagonal directions
-        for (int hd : Utilities.PLUS_MINUS) { // horizontal direction
-            for (int vd : Utilities.PLUS_MINUS) { // vertical direction
+        for (int hDirection : Constants.PLUS_MINUS) {
+            for (int vDirection : Constants.PLUS_MINUS) {
                 try {
                     for (int i = 1; true; i++) {
-                        checkedSpot = new int[] { spot[0] + i * vd, spot[1] + i * hd }; // currently the checked spot
+                        checkedSpot = new int[] { spot[0] + i * vDirection, spot[1] + i * hDirection };
                         if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) { // if empty spot
-                            spots[indexCounter++] = checkedSpot; // add to available spots
+                            spots[indexCounter++] = checkedSpot;
                         } else if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag) { // if spots is foe
-                            spots[indexCounter++] = checkedSpot; // add to available spots
-                            throw new IndexOutOfBoundsException("reached a piece of opposite colour"); // break from the
-                                                                                                       // current diagonal
+                            spots[indexCounter++] = checkedSpot;
+                            throw new IndexOutOfBoundsException("reached a piece of opposite colour");
                         } else {
-                            throw new IndexOutOfBoundsException("reached a piece of the same colour"); // break from the
-                                                                                                       // current diagonal
+                            throw new IndexOutOfBoundsException("reached a piece of the same colour");
                         }
                     }
                 } catch (IndexOutOfBoundsException e) { // if checked spot out of bounds just skip it

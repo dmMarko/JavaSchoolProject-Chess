@@ -16,14 +16,13 @@ public class Pawn extends Piece {
         int[] checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
 
         try{ // farward check
-            checkedSpot = new int[] {spot[0] + this.tag, spot[1]}; // set next spot to the spot in front of the pawn
-            if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) { // pawns can only move forward if the spot in front of them is empty
+            checkedSpot = new int[] {spot[0] + this.tag, spot[1]};
+            if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) {
                 spots[0] = checkedSpot;
 
                 checkedSpot = new int[] {spot[0] + this.tag * 2, spot[1]};
                 // pawns' condition for moving 1 spot forward is included in the condition for moving 2 spots, hence the nested if
-                if (!this.hasMoved && board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY){ // pawns can only move forward twice if the spots
-                                                                                                // in front of them are empty and they havn't moved yet
+                if (!this.hasMoved && board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY){
                     spots[1] = checkedSpot;
                 }
             }
@@ -31,14 +30,13 @@ public class Pawn extends Piece {
             //if we try to check out of bounds an error will be triggered. pawns can't move outside of the board so it will just quite the forward check
         }
 
-        int spotsIndexCounter = 2;
-        for (int side : Utilities.PLUS_MINUS) { // left and right
+        int indexCounter = 2;
+        for (int side : Constants.PLUS_MINUS) {
             try {
                 checkedSpot = new int[] {spot[0] + this.tag, spot[1] + side}; // set next checked spot to one to the side and one farward
                 
-                // because the tags for black and white are opposites, so in order to check if it's an enemy pawn, we check for the negative tag
                 if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag){ 
-                    spots[spotsIndexCounter++] = checkedSpot; // add the spots to the return list
+                    spots[indexCounter++] = checkedSpot;
                 }
             } catch (IndexOutOfBoundsException e) { 
                 //handle the cases when pawns are placed on the edge of the board
@@ -50,7 +48,7 @@ public class Pawn extends Piece {
     @Override
     public String toString(){
         String symbol = String.valueOf(this.symbol); 
-        switch(tag){ // if the tag is black, the symbol should be lower case, if the tag is white it should be uppercase
+        switch(tag){
             case BLACK:
                 return "δ";
             case WHITE:

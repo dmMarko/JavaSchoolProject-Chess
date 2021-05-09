@@ -17,18 +17,18 @@ public class Knight extends Piece {
         int indexCounter = 0;
 
         // the next 3 for loops account for all possible locations a knight can move to
-        for (int axis : Utilities.AXIS_ITER) { // for each axis
-            for (int d : Utilities.PLUS_MINUS) { // for each direction on that axis
-                for (int side : Utilities.PLUS_MINUS) { // for each side in that direction
-                    try { // in case it goes out of board
-                        if (axis == 0) { // on the y axis
-                            checkedSpot = new int[] { spot[0] + 2 * d, spot[1] + side }; // check 2 forward and 1 to one side
-                        } else { // on the x axis
-                            checkedSpot = new int[] { spot[0] + side, spot[1] + 2 * d }; // check 2 forward and 1 to one side
+        for (int axis : Constants.AXIS_ITER) {
+            for (int direction : Constants.PLUS_MINUS) {
+                for (int side : Constants.PLUS_MINUS) { // for each side in that direction
+                    try {
+                        if (axis == 0) { // on the x axis
+                            checkedSpot = new int[] { spot[0] + 2 * direction, spot[1] + side }; // check 2 to the side and 1 forwards
+                        } else { // on the y axis
+                            checkedSpot = new int[] { spot[0] + side, spot[1] + 2 * direction }; // check 2 forward and 1 to one side
                         }
 
                         if (board[checkedSpot[0]][checkedSpot[1]].getTag() != this.tag) { // the only existing square a knight can't move to is one with a piece of the same colour
-                            spots[indexCounter++] = checkedSpot; // add an available spot as an available spot
+                            spots[indexCounter++] = checkedSpot;
                         }
                     } catch (IndexOutOfBoundsException e) { // if it tried checking out of board, ignore and pass onwards
                     }

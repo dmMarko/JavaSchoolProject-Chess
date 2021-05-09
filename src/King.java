@@ -1,8 +1,10 @@
 public class King extends Piece {
 
+    public static final char KING_SYMBOL = 'k';
+    
     protected King(int tag, Board state) {
         super(tag, state);
-        this.symbol = 'k';
+        this.symbol = KING_SYMBOL;
     }
 
     @Override
@@ -12,13 +14,13 @@ public class King extends Piece {
         int[] checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
 
         int spotsIndexCounter = 0;
-        for (int h : Utilities.PLUS_ZERO_MINUS) { // check each direction (horizontal)
-            for (int v : Utilities.PLUS_ZERO_MINUS) { // and each direction in that direction (vertical)
-                if (!(v == 0 && h == 0)) { // the king can't move to it's own spot
+        for (int hDirection : Constants.PLUS_ZERO_MINUS) { // check each direction (horizontal)
+            for (int vDirection : Constants.PLUS_ZERO_MINUS) { // and each direction in that direction (vertical)
+                if (!(vDirection == 0 && hDirection == 0)) { // the king can't move to it's own spot
                     try {
-                        checkedSpot = new int[] { spot[0] + v, spot[1] + h }; // set next spot to check
+                        checkedSpot = new int[] { spot[0] + vDirection, spot[1] + hDirection }; 
 
-                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() != this.tag) { // a king can move to any existing square that doesn't contain a piece of the same colour
+                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() != this.tag) { // if foe or empty
                             spots[spotsIndexCounter++] = checkedSpot;
                         }
                     } catch (IndexOutOfBoundsException e) { // the king can't go out of bounds
@@ -27,19 +29,19 @@ public class King extends Piece {
             }
         }
 
-        int firstRow = this.tag == WHITE ? Utilities.WHITE_FIRST_ROW : Utilities.BLACK_FIRST_ROW; // the first row (with the king and rook etc) depends on the colour
-        if (!this.hasMoved) { // if the king didn't move
+        int firstRow = this.tag == WHITE ? Constants.WHITE_FIRST_ROW : Constants.BLACK_FIRST_ROW; // the first row (with the king and rook etc) depends on the colour
+        if (!this.hasMoved) {
 
             // check short castling
-            if (!board[firstRow][Utilities.KINGSIDE_ROOK_COLUMN].hasMoved && board[firstRow][6].getTag() == EMPTY
+            if (!board[firstRow][Constants.KINGSIDE_ROOK_COLUMN].hasMoved && board[firstRow][6].getTag() == EMPTY
                     && board[firstRow][5].getTag() == EMPTY) {
-                spots[spotsIndexCounter++] = new int[] { firstRow, Utilities.SHORT_CASTLE_KING_DEST };
+                spots[spotsIndexCounter++] = new int[] { firstRow, Constants.SHORT_CASTLE_KING_DEST };
             }
 
             // check long castling
-            if (!board[firstRow][Utilities.QUEENSIDE_ROOK_COLUMN].hasMoved && board[firstRow][1].getTag() == EMPTY
+            if (!board[firstRow][Constants.QUEENSIDE_ROOK_COLUMN].hasMoved && board[firstRow][1].getTag() == EMPTY
                     && board[firstRow][2].getTag() == EMPTY && board[firstRow][3].getTag() == EMPTY) {
-                spots[spotsIndexCounter++] = new int[] { firstRow, Utilities.LONG_CASTLE_KING_DEST };
+                spots[spotsIndexCounter++] = new int[] { firstRow, Constants.LONG_CASTLE_KING_DEST };
             }
         }
 

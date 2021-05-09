@@ -14,49 +14,46 @@ public class Queen extends Piece {
         int indexCounter = 0;
 
         // rook-like
-        for (int axis : Utilities.AXIS_ITER) { // x axis, y axis
-            for (int d : Utilities.PLUS_MINUS) { // negative direction, positive direction
+        for (int axis : Constants.AXIS_ITER) {
+            for (int direction : Constants.PLUS_MINUS) {
                 boolean breakCondition = true;
-                int counter = 1; // index of the checked spot
+                int spotCounter = 1; // the index of the checked spot in the current direction
                 while (breakCondition) {
                     try {
                         if (axis == 0) { // check the correct spot for horizontal axis
-                            checkedSpot = new int[] { spot[0], spot[1] + counter * d };
+                            checkedSpot = new int[] { spot[0], spot[1] + spotCounter * direction };
                         } else { // check the correct spot for vertical axis
-                            checkedSpot = new int[] { spot[0] + counter * d, spot[1] };
+                            checkedSpot = new int[] { spot[0] + spotCounter * direction, spot[1] };
                         }
-                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) { // if checked spot is empty
-                            spots[indexCounter++] = checkedSpot; // add spot to available spots
+                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) {
+                            spots[indexCounter++] = checkedSpot;
                         } else if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag) { // if checked spot is foe
-                            spots[indexCounter++] = checkedSpot; // add spot to avaliable spots
-                            breakCondition = false; // break from the loop
+                            spots[indexCounter++] = checkedSpot;
+                            breakCondition = false;
                         } else { // if checked spot is the same color as this piece.
-                            breakCondition = false; // break from the loop
+                            breakCondition = false;
                         }
                     } catch (IndexOutOfBoundsException e) { // if checked spot out of bounds break
                         breakCondition = false;
                     }
-                    counter++;
+                    spotCounter++;
                 }
             }
         }
 
         // bishop-like
-        // checking 4 diagonal directions
-        for (int hd : Utilities.PLUS_MINUS) { // horizontal direction
-            for (int vd : Utilities.PLUS_MINUS) { // vertical direction
+        for (int hDirection : Constants.PLUS_MINUS) { // horizontal direction
+            for (int vDirection : Constants.PLUS_MINUS) { // vertical direction
                 try {
                     for (int i = 1; true; i++) {
-                        checkedSpot = new int[] { spot[0] + i * vd, spot[1] + i * hd }; // currently the checked spot
-                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) { // if empty spot
-                            spots[indexCounter++] = checkedSpot; // add to available spots
+                        checkedSpot = new int[] { spot[0] + i * vDirection, spot[1] + i * hDirection };
+                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) {
+                            spots[indexCounter++] = checkedSpot;
                         } else if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag) { // if spots is foe
-                            spots[indexCounter++] = checkedSpot; // add to available spots
-                            throw new IndexOutOfBoundsException("reached a piece of opposite colour"); // break from the
-                                                                                                       // current diagonal
+                            spots[indexCounter++] = checkedSpot;
+                            throw new IndexOutOfBoundsException("reached a piece of opposite colour");
                         } else {
-                            throw new IndexOutOfBoundsException("reached a piece of the same colour"); // break from the
-                                                                                                       // current diagonal
+                            throw new IndexOutOfBoundsException("reached a piece of the same colour");
                         }
                     }
                 } catch (IndexOutOfBoundsException e) { // if checked spot out of bounds just skip it

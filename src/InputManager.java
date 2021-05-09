@@ -24,11 +24,13 @@ public class InputManager {
     public static int[][] parseInput(String input) {
         Matcher inputMatcher = parsePattern.matcher(input); // match the input with the pattern
 
-        if (!inputMatcher.matches()) { // if the input doesn't match the pattern, we can't extract the coords
+        // if the input doesn't match the pattern, we can't extract the coords
+        if (!inputMatcher.matches()) { 
             return null;
         }
 
-        return new int[][] { // if it does, extract the coords
+        // if it does, extract the coords
+        return new int[][] { 
                 convertChessCoords(inputMatcher.group(1).charAt(0), Integer.parseInt(inputMatcher.group(2))),
                 convertChessCoords(inputMatcher.group(3).charAt(0), Integer.parseInt(inputMatcher.group(4))) };
     }

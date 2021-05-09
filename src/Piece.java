@@ -3,6 +3,8 @@ public abstract class Piece {
     public static final int WHITE = -1; // the tag for white pieces
     public static final int BLACK = +1; // the tag for black pieces
     public static final int EMPTY = 0;  // the tag for empty pieces
+    
+    //private vars
     protected int tag; // the variable that decides whether the piece is black white or empty
     protected Board state; // the board on which the piece is placed
     protected char symbol; // the symbol of the piece, different for every kind of piece

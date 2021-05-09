@@ -32,7 +32,7 @@ public class App {
             }
 
             if (input.equals("rules")) {
-                System.out.println(Utilities.RULES_TEXT);
+                System.out.println(Constants.RULES_TEXT);
             }
         }
     }
@@ -84,8 +84,8 @@ public class App {
                 System.out.println(
                         "the spot you are trying to move form does not contain a piece of your colour, please try another spot");
                 input_valid = false; // invalid input
-            } else if (!gameBoard.canMoveFromTo(input[0], input[1])) { // check if the selsected piece can move to
-                                                                       // the selected spot
+            } else if (!gameBoard.canMoveFromTo(input[0], input[1])) {
+                 // check if the selsected piece can move to the selected spot
                 System.out.println("This piece cannot be moved to the desired location, please try another one");
                 input_valid = false; // invalid input
             }
@@ -106,14 +106,14 @@ public class App {
                 && !gameBoard.getRawBoard()[input[0][0]][input[0][1]].hasMoved) {
 
             // if trying to do castle long
-            if (input[1][1] == Utilities.LONG_CASTLE_KING_DEST) {
-                gameBoard.movePieceFromTo(new int[] { firstRow, Utilities.QUEENSIDE_ROOK_COLUMN },
-                        new int[] { firstRow, Utilities.LONG_CASTLE_ROOK_DEST });
+            if (input[1][1] == Constants.LONG_CASTLE_KING_DEST) {
+                gameBoard.movePieceFromTo(new int[] { firstRow, Constants.QUEENSIDE_ROOK_COLUMN },
+                        new int[] { firstRow, Constants.LONG_CASTLE_ROOK_DEST });
 
                 // if trying to do castle short
-            } else if (input[1][1] == Utilities.SHORT_CASTLE_KING_DEST) {
-                gameBoard.movePieceFromTo(new int[] { firstRow, Utilities.KINGSIDE_ROOK_COLUMN },
-                        new int[] { firstRow, Utilities.SHORT_CASTLE_ROOK_DEST });
+            } else if (input[1][1] == Constants.SHORT_CASTLE_KING_DEST) {
+                gameBoard.movePieceFromTo(new int[] { firstRow, Constants.KINGSIDE_ROOK_COLUMN },
+                        new int[] { firstRow, Constants.SHORT_CASTLE_ROOK_DEST });
 
             }
         }
