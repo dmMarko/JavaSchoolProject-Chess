@@ -33,6 +33,8 @@ public class Constants {
     public static final int SHORT_CASTLE_ROOK_DEST = 5;
     public static final int LONG_CASTLE_ROOK_DEST = 3;
 
+    public static final int BOARD_SIZE = 8;
+
     
 
 

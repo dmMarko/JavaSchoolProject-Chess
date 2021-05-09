@@ -87,7 +87,7 @@ public class Board {
         }
         return false;
     }
-
+    
     /**
      * moves a piece to a location in the board.
      * 
@@ -97,7 +97,7 @@ public class Board {
     public void movePieceFromTo(int[] piecePos, int[] nextPos) {
         rawBoard[nextPos[0]][nextPos[1]] = rawBoard[piecePos[0]][piecePos[1]]; // moves piece to desired location
         rawBoard[piecePos[0]][piecePos[1]] = EMPTY_PIECE; // emptys the original spot
-        rawBoard[nextPos[0]][nextPos[1]].moved(); // changing the piece's 'hasMoved' attribute to true.
+        rawBoard[nextPos[0]][nextPos[1]].moved();
     }
 
     /**
