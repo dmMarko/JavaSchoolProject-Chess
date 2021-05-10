@@ -2,30 +2,24 @@ import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.imageio.ImageIO;
 
 public class GuiConstants {
     public static final Dimension SCREEN_SIZE = new Dimension(800, 800);
 
-    public static final BufferedImage BOARD_IMG;
-    public static final BufferedImage BLACK_ROOK_IMG;
-    public static final BufferedImage WHITE_ROOK_IMG;
+    public static final HashMap<String, BufferedImage> IMAGES = new HashMap<String, BufferedImage>();
 
     static {
-        BufferedImage tmpBoard = null;
-        BufferedImage tmpBlackRook = null;
-        BufferedImage tmpWhiteRook = null;
-
         try {
-            tmpBoard = ImageIO.read(new File("src\\resources\\Board.png"));
-            tmpBlackRook = ImageIO.read(new File("src\\resources\\black_rook.png"));
-            tmpWhiteRook = ImageIO.read(new File("src\\resources\\white_rook.png"));
+            File[] imagesArray = (new File("src\\resources").listFiles());
+            for (File file : imagesArray) {
+                IMAGES.put(file.getName(), ImageIO.read(file));
+            }
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(0);
         }
-
-        BOARD_IMG = tmpBoard;
-        BLACK_ROOK_IMG = tmpBlackRook;
-        WHITE_ROOK_IMG = tmpWhiteRook;
     }
 }

@@ -13,21 +13,23 @@ class testApp extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.drawImage(GuiConstants.BOARD_IMG, 0, 0, this);
+        g.drawImage(GuiConstants.IMAGES.get("board.png"), 0, 0, this);
+        drawPieces(g);
+    }
 
-        for (int row = 0; row < Constants.BOARD_SIZE; row++){
+    private void drawPieces(Graphics g) {
+        for (int row = 0; row < Constants.BOARD_SIZE; row++) {
             int yCoord = 100 * row;
-            for (int column = 0; column < Constants.BOARD_SIZE; column++){
+
+            for (int column = 0; column < Constants.BOARD_SIZE; column++) {
                 int xCoord = 100 * column;
 
                 Piece checked_piece = state.getRawBoard()[row][column];
 
-                if (state.getRawBoard()[row][column].getTag() == Piece.WHITE){
-                    if ( instanceof Rook){
-
-                    }
-                } else if (state.getRawBoard()[row][column].getTag() == Piece.BLACK){
-                    
+                if (checked_piece.getTag() != Piece.EMPTY) {
+                    String pieceName = (checked_piece.getTag() == Piece.WHITE ? "white" : "black") + "_"
+                            + checked_piece.getClass().getName().toLowerCase() + ".png";
+                    g.drawImage(GuiConstants.IMAGES.get(pieceName), xCoord, yCoord, this);
                 }
             }
         }

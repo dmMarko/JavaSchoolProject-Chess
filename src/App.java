@@ -38,8 +38,11 @@ public class App {
     }
 
     /**
-     * this method gets an input from the user, checks whether he wants to draw or resign.
-     * @return the move the user would like to make [[srcRow, srcColumn], [destRow, destColumn]]
+     * this method gets an input from the user, checks whether he wants to draw or
+     * resign.
+     * 
+     * @return the move the user would like to make [[srcRow, srcColumn], [destRow,
+     *         destColumn]]
      */
     public static int[][] getMove() {
         String rawInput; // the variable that will get the raw input, used to enable the user to enter
@@ -85,7 +88,7 @@ public class App {
                         "the spot you are trying to move form does not contain a piece of your colour, please try another spot");
                 input_valid = false; // invalid input
             } else if (!gameBoard.canMoveFromTo(input[0], input[1])) {
-                 // check if the selsected piece can move to the selected spot
+                // check if the selsected piece can move to the selected spot
                 System.out.println("This piece cannot be moved to the desired location, please try another one");
                 input_valid = false; // invalid input
             }
@@ -158,8 +161,8 @@ public class App {
 
             // print input message
             System.out.println(playerColourName
-                    + "'s turn, enter the position of the piece you want to move and the position you want to move it to (e2-e4 for example): \n" +
-                    "remember that you can always type \"resign\" to resign or \"draw\" to draw");
+                    + "'s turn, enter the position of the piece you want to move and the position you want to move it to (e2-e4 for example): \n"
+                    + "remember that you can always type \"resign\" to resign or \"draw\" to draw");
             if (offeredDraw) {
                 System.out.println("you also have a draw offer, type \"draw\" in order to accept, ignore to regect");
             }
