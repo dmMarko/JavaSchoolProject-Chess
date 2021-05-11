@@ -7,7 +7,7 @@ import java.util.HashMap;
 import javax.imageio.ImageIO;
 
 public class GuiUtilities {
-    public static final Dimension SCREEN_SIZE = new Dimension(800, 800);
+    public static final Dimension SCREEN_SIZE = new Dimension(800, 950);
 
     public static final HashMap<String, BufferedImage> IMAGES = new HashMap<String, BufferedImage>();
 

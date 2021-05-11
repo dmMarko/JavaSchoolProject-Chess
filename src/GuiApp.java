@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -14,7 +16,53 @@ class GuiApp extends JPanel implements MouseListener {
 
     public GuiApp() {
         this.state = new Board();
+        setLayout(null);
         addMouseListener(this);
+        JButton resignButton = new JButton("RESIGN");
+        JButton tieButton = new JButton("DRAW");
+
+        resignButton.setBounds(75, 820, 225, 110);
+        tieButton.setBounds(500, 820, 225, 110);
+
+        resignButton.setBackground(new Color(255, 255, 245));
+        tieButton.setBackground(new Color(230, 230, 25));
+
+        resignButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(getParent(),
+                        (state.getTurnCounter() % 2 == 0 ? "White" : "Black") + " has resigned!", "GAME OVER",
+                        JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0);
+            }
+
+        });
+
+        tieButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                int response = JOptionPane.showConfirmDialog(getParent(),
+                        (state.getTurnCounter() % 2 == 0 ? "White" : "Black") + " has offered a draw.\n"
+                                + (state.getTurnCounter() % 2 == 1 ? "White" : "Black") + ", will you accept?",
+                        "Draw?", JOptionPane.YES_NO_OPTION);
+                System.out.println(response);
+
+                if (response == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(getParent(), "both players agreed to draw.\nclosing game.", "DRAW.",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    System.exit(0);
+                } else {
+                    JOptionPane.showMessageDialog(getParent(),
+                            (state.getTurnCounter() % 2 == 1 ? "White" : "Black") + " has declined the draw offer.",
+                            "DECLINE", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            }
+        });
+
+        add(resignButton);
+        add(tieButton);
     }
 
     @Override
@@ -70,23 +118,25 @@ class GuiApp extends JPanel implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        int[] chosenPos = new int[] { e.getY() / GuiUtilities.COORDS_SPOT_RATIO,
-                e.getX() / GuiUtilities.COORDS_SPOT_RATIO };
-        Piece tempPiece = state.getRawBoard()[e.getY() / GuiUtilities.COORDS_SPOT_RATIO][e.getX()
-                / GuiUtilities.COORDS_SPOT_RATIO];
-        if (!pieceSelected && tempPiece.getTag() == (state.getTurnCounter() % 2 == 0 ? Piece.WHITE : Piece.BLACK)) {
-            spotHolder = chosenPos;
-            pieceSelected = true;
-        } else if (pieceSelected) {
-            if (state.canMoveFromTo(spotHolder, chosenPos)) {
-                castleMove(new int[][]{spotHolder, chosenPos});
-                state.movePieceFromTo(spotHolder, chosenPos);
-                checkWin();
-                state.promote();
-                state.setTurnCounter(state.getTurnCounter() + 1);
+        if (e.getY() < 800) {
+            int[] chosenPos = new int[] { e.getY() / GuiUtilities.COORDS_SPOT_RATIO,
+                    e.getX() / GuiUtilities.COORDS_SPOT_RATIO };
+            Piece tempPiece = state.getRawBoard()[e.getY() / GuiUtilities.COORDS_SPOT_RATIO][e.getX()
+                    / GuiUtilities.COORDS_SPOT_RATIO];
+            if (!pieceSelected && tempPiece.getTag() == (state.getTurnCounter() % 2 == 0 ? Piece.WHITE : Piece.BLACK)) {
+                spotHolder = chosenPos;
+                pieceSelected = true;
+            } else if (pieceSelected) {
+                if (state.canMoveFromTo(spotHolder, chosenPos)) {
+                    castleMove(new int[][] { spotHolder, chosenPos });
+                    state.movePieceFromTo(spotHolder, chosenPos);
+                    checkWin();
+                    state.promote();
+                    state.setTurnCounter(state.getTurnCounter() + 1);
+                }
+                spotHolder = null;
+                pieceSelected = false;
             }
-            spotHolder = null;
-            pieceSelected = false;
         }
 
         repaint();
@@ -121,10 +171,12 @@ class GuiApp extends JPanel implements MouseListener {
         }
     }
 
-    public void checkWin(){
-        if (state.didWin(state.getTurnCounter() % 2 == 0 ? Piece.WHITE : Piece.BLACK)){
+    public void checkWin() {
+        if (state.didWin(state.getTurnCounter() % 2 == 0 ? Piece.WHITE : Piece.BLACK)) {
             repaint();
-            JOptionPane.showMessageDialog(this.getParent(),(state.getTurnCounter() % 2 == 0 ? "White" : "Black") + " has won!", "GAME OVER", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this.getParent(),
+                    (state.getTurnCounter() % 2 == 0 ? "White" : "Black") + " has won!", "GAME OVER",
+                    JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
     }
