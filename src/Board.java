@@ -43,19 +43,19 @@ public class Board {
         rawBoard[0][7] = new Rook(Piece.BLACK, this);
 
         // black's second line of pawns
-        for (int column = 0; column < rawBoard[1].length; column++) {
+        for (int column = 0; column < Constants.BOARD_SIZE; column++) {
             rawBoard[1][column] = new Pawn(Piece.BLACK, this);
         }
 
         // the empty spots of the board
         for (int row = 2; row < 6; row++) {
-            for (int column = 0; column < 8; column++) {
+            for (int column = 0; column < Constants.BOARD_SIZE; column++) {
                 rawBoard[row][column] = EMPTY_PIECE;
             }
         }
 
         // white's second line
-        for (int column = 0; column < rawBoard[6].length; column++) {
+        for (int column = 0; column < Constants.BOARD_SIZE; column++) {
             rawBoard[6][column] = new Pawn(Piece.WHITE, this);
         }
 

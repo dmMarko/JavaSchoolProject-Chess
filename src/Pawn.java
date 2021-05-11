@@ -12,7 +12,7 @@ public class Pawn extends Piece {
      */
     public int[][] getValidSpots(int[] spot) {
         Piece[][] board = this.state.getRawBoard(); // the board itself (array and not class) on which the pawn stands
-        int[][] spots = new int[4][2]; // this array will contain all of the spots on which this specific pawn can move to
+        int[][] spots = new int[4][]; // this array will contain all of the spots on which this specific pawn can move to
         int[] checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
 
         try{ // farward check
