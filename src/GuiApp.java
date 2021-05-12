@@ -20,12 +20,23 @@ class GuiApp extends JPanel implements MouseListener {
         addMouseListener(this);
         JButton resignButton = new JButton("RESIGN");
         JButton tieButton = new JButton("DRAW");
+        JButton rulesButton = new JButton("RULES");
 
         resignButton.setBounds(75, 820, 225, 110);
         tieButton.setBounds(500, 820, 225, 110);
+        rulesButton.setBounds(320, 855, 160, 40);
 
         resignButton.setBackground(new Color(255, 255, 245));
         tieButton.setBackground(new Color(230, 230, 25));
+        rulesButton.setBackground(new Color(60, 60, 60));
+
+        rulesButton.setForeground(Color.WHITE);
+
+        Font buttonFont = new Font("Arial Rounded MT Bold", Font.PLAIN, 45);
+
+        rulesButton.setFont(new Font("Arial Rounded MT Bold", Font.PLAIN, 20));
+        tieButton.setFont(buttonFont);
+        resignButton.setFont(buttonFont);
 
         resignButton.addActionListener(new ActionListener() {
 
@@ -61,8 +72,18 @@ class GuiApp extends JPanel implements MouseListener {
             }
         });
 
+        rulesButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(getParent(), Constants.RULES_TEXT, "RULES", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        });
+
         add(resignButton);
         add(tieButton);
+        add(rulesButton);
     }
 
     @Override
@@ -185,6 +206,7 @@ class GuiApp extends JPanel implements MouseListener {
         GuiApp panel = new GuiApp();
 
         window.add(panel);
+        window.setVisible(true);
         window.pack();
         window.setLocationRelativeTo(null);
     }
@@ -194,19 +216,10 @@ class GuiApp extends JPanel implements MouseListener {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
 
-        MainMenu menu = new MainMenu();
-        window.add(menu);
+        GuiApp panel = new GuiApp();
+        window.add(panel);
         window.setVisible(true);
         window.pack();
         window.setLocationRelativeTo(null);
-        
-
-        while (true){
-            if (menu.getPlay()){
-                break;
-            }
-        }
-        
-        startGame(window);
     }
 }
