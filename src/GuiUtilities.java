@@ -15,7 +15,11 @@ public class GuiUtilities {
 
     static {
         try {
-            File[] imagesArray = (new File("src\\resources").listFiles());
+            File imgDirectory = new File("src\\resources");
+            if (!imgDirectory.isDirectory())
+                imgDirectory = new File("resources"); // need shorter path
+
+            File[] imagesArray = imgDirectory.listFiles();
             for (File file : imagesArray) {
                 IMAGES.put(file.getName().substring(0, file.getName().length() - 4), ImageIO.read(file));
             }
@@ -26,6 +30,6 @@ public class GuiUtilities {
     }
 
     public static int[] coordsToSpot(int[] spot) {
-        return new int[]{spot[0]/COORDS_SPOT_RATIO, spot[1]/COORDS_SPOT_RATIO};
+        return new int[] { spot[0] / COORDS_SPOT_RATIO, spot[1] / COORDS_SPOT_RATIO };
     }
 }

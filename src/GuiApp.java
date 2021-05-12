@@ -57,7 +57,6 @@ class GuiApp extends JPanel implements MouseListener {
                         (state.getTurnCounter() % 2 == 0 ? "White" : "Black") + " has offered a draw.\n"
                                 + (state.getTurnCounter() % 2 == 1 ? "White" : "Black") + ", will you accept?",
                         "Draw?", JOptionPane.YES_NO_OPTION);
-                System.out.println(response);
 
                 if (response == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(getParent(), "both players agreed to draw.\nclosing game.", "DRAW.",
@@ -76,7 +75,8 @@ class GuiApp extends JPanel implements MouseListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(getParent(), Constants.RULES_TEXT, "RULES", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(getParent(), Constants.RULES_TEXT, "RULES",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
 
         });
