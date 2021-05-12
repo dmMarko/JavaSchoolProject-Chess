@@ -181,16 +181,32 @@ class GuiApp extends JPanel implements MouseListener {
         }
     }
 
+    public static void startGame(JFrame window) {
+        GuiApp panel = new GuiApp();
+
+        window.add(panel);
+        window.pack();
+        window.setLocationRelativeTo(null);
+    }
+
     public static void main(String[] args) {
         JFrame window = new JFrame("Chess");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
 
-        GuiApp panel = new GuiApp();
-
-        window.add(panel);
+        MainMenu menu = new MainMenu();
+        window.add(menu);
         window.setVisible(true);
         window.pack();
         window.setLocationRelativeTo(null);
+        
+
+        while (true){
+            if (menu.getPlay()){
+                break;
+            }
+        }
+        
+        startGame(window);
     }
 }
