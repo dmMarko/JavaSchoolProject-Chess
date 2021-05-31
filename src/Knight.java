@@ -9,10 +9,10 @@ public class Knight extends Piece {
      * @param spot - the knight's position
      * @return all leagal spots the knight can move to
      */
-    public int[][] getValidSpots(int[] spot) {
-        Piece[][] board = this.state.getRawBoard(); // get the board as an array in order to not write state.getRawBoard() everytime
-        int[][] spots = new int[8][]; // the array that will be returned in the end
-        int[] checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
+    public Spot[] getValidSpots(Spot spot) {
+        Board board = this.state; // get the board as an array in order to not write state.getRawBoard() everytime
+        Spot[] spots = new Spot[8]; // the array that will be returned in the end
+        Spot checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
 
         int indexCounter = 0;
 
@@ -22,12 +22,12 @@ public class Knight extends Piece {
                 for (int side : Constants.PLUS_MINUS) { // for each side in that direction
                     try {
                         if (axis == 0) { // on the x axis
-                            checkedSpot = new int[] { spot[0] + 2 * direction, spot[1] + side }; // check 2 to the side and 1 forwards
+                            checkedSpot = new Spot(spot.getRow() + 2 * direction, spot.getColumn() + side); // check 2 to the side and 1 forwards
                         } else { // on the y axis
-                            checkedSpot = new int[] { spot[0] + side, spot[1] + 2 * direction }; // check 2 forward and 1 to one side
+                            checkedSpot = new Spot( spot.getRow() + side, spot.getColumn() + 2 * direction ); // check 2 forward and 1 to one side
                         }
 
-                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() != this.tag) { // the only existing square a knight can't move to is one with a piece of the same colour
+                        if (board.getPiece(checkedSpot).getTag() != this.tag) { // the only existing square a knight can't move to is one with a piece of the same colour
                             spots[indexCounter++] = checkedSpot;
                         }
                     } catch (IndexOutOfBoundsException e) { // if it tried checking out of board, ignore and pass onwards

@@ -6,8 +6,8 @@ public class Empty extends Piece{
     }
 
     @Override
-    public int[][] getValidSpots(int[] spot) {
-        return new int[][]{};
+    public Spot[] getValidSpots(Spot spot) {
+        return new Spot[]{};
     }
     
 }

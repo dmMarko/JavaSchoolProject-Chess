@@ -45,5 +45,5 @@ public abstract class Piece {
      * @param spot - the piece's position
      * @return all leagal spots the piece can move to
      */
-    public abstract int[][] getValidSpots(int[] spot);
+    public abstract Spot[] getValidSpots(Spot spot);
 }

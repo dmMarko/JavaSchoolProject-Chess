@@ -44,10 +44,10 @@ public class App {
      * @return the move the user would like to make [[srcRow, srcColumn], [destRow,
      *         destColumn]]
      */
-    public static int[][] getMove() {
+    public static Spot[] getMove() {
         String rawInput; // the variable that will get the raw input, used to enable the user to enter
                          // non move commands
-        int[][] input; // the variable that will contain the input, it should be a 2x2 2d array (two
+        Spot[] input; // the variable that will contain the input, it should be a 2x2 2d array (two
                        // spots)
 
         // loop until the user input is syntax-valid and rules-valid
@@ -83,7 +83,7 @@ public class App {
             } else if (input == null) { // check if the syntax matches the format
                 System.out.println("This position is invalid, please enter a valid position in the right format");
                 input_valid = false; // invalid input
-            } else if (gameBoard.getRawBoard()[input[0][0]][input[0][1]].getTag() != turnColour) {
+            } else if (gameBoard.getPiece(input[0]).getTag() != turnColour) {
                 System.out.println(
                         "the spot you are trying to move form does not contain a piece of your colour, please try another spot");
                 input_valid = false; // invalid input
@@ -110,13 +110,13 @@ public class App {
 
             // if trying to do castle long
             if (input[1][1] == Constants.LONG_CASTLE_KING_DEST) {
-                gameBoard.movePieceFromTo(new int[] { firstRow, Constants.QUEENSIDE_ROOK_COLUMN },
-                        new int[] { firstRow, Constants.LONG_CASTLE_ROOK_DEST });
+                gameBoard.movePieceFromTo(new Spot( firstRow, Constants.QUEENSIDE_ROOK_COLUMN ),
+                        new Spot( firstRow, Constants.LONG_CASTLE_ROOK_DEST ));
 
                 // if trying to do castle short
             } else if (input[1][1] == Constants.SHORT_CASTLE_KING_DEST) {
-                gameBoard.movePieceFromTo(new int[] { firstRow, Constants.KINGSIDE_ROOK_COLUMN },
-                        new int[] { firstRow, Constants.SHORT_CASTLE_ROOK_DEST });
+                gameBoard.movePieceFromTo(new Spot( firstRow, Constants.KINGSIDE_ROOK_COLUMN ),
+                        new Spot( firstRow, Constants.SHORT_CASTLE_ROOK_DEST ));
 
             }
         }
@@ -147,7 +147,7 @@ public class App {
 
         // the variable that will contain the input, it should be a 2x2 2d array (two
         // spots)
-        int[][] input;
+        Spot[] input;
 
         do {
             System.out.println(gameBoard); // print the board

@@ -8,19 +8,19 @@ public class King extends Piece {
     }
 
     @Override
-    public int[][] getValidSpots(int[] spot) {
-        Piece[][] board = this.state.getRawBoard(); // get the board as an array in order to not write state.getRawBoard() everytime
-        int[][] spots = new int[9][]; // the array that will be returned in the end
-        int[] checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
+    public Spot[] getValidSpots(Spot spot) {
+        Board board = this.state; // get the board as an array in order to not write state.getRawBoard() everytime
+        Spot[] spots = new Spot[9]; // the array that will be returned in the end
+        Spot checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
 
         int spotsIndexCounter = 0;
         for (int hDirection : Constants.PLUS_ZERO_MINUS) { // check each direction (horizontal)
             for (int vDirection : Constants.PLUS_ZERO_MINUS) { // and each direction in that direction (vertical)
                 if (!(vDirection == 0 && hDirection == 0)) { // the king can't move to it's own spot
                     try {
-                        checkedSpot = new int[] { spot[0] + vDirection, spot[1] + hDirection }; 
+                        checkedSpot = new Spot(spot.getRow() + vDirection, spot.getColumn() + hDirection); 
 
-                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() != this.tag) { // if foe or empty
+                        if (board.getPiece(checkedSpot).getTag() != this.tag) { // if foe or empty
                             spots[spotsIndexCounter++] = checkedSpot;
                         }
                     } catch (IndexOutOfBoundsException e) { // the king can't go out of bounds
@@ -33,15 +33,15 @@ public class King extends Piece {
         if (!this.hasMoved) {
 
             // check short castling
-            if (!board[firstRow][Constants.KINGSIDE_ROOK_COLUMN].hasMoved && board[firstRow][6].getTag() == EMPTY
-                    && board[firstRow][5].getTag() == EMPTY) {
-                spots[spotsIndexCounter++] = new int[] { firstRow, Constants.SHORT_CASTLE_KING_DEST };
+            if (!board.getPiece(new Spot(firstRow, Constants.KINGSIDE_ROOK_COLUMN)).hasMoved && board.getPiece(new Spot(firstRow, 6)).getTag() == EMPTY
+                    && board.getPiece(new Spot(firstRow, 5)).getTag() == EMPTY) {
+                spots[spotsIndexCounter++] = new Spot( firstRow, Constants.SHORT_CASTLE_KING_DEST );
             }
 
             // check long castling
-            if (!board[firstRow][Constants.QUEENSIDE_ROOK_COLUMN].hasMoved && board[firstRow][1].getTag() == EMPTY
-                    && board[firstRow][2].getTag() == EMPTY && board[firstRow][3].getTag() == EMPTY) {
-                spots[spotsIndexCounter++] = new int[] { firstRow, Constants.LONG_CASTLE_KING_DEST };
+            if (!board.getPiece(new Spot(firstRow, Constants.QUEENSIDE_ROOK_COLUMN)).hasMoved && board.getPiece(new Spot(firstRow, 1)).getTag() == EMPTY
+                    && board.getPiece(new Spot(firstRow, 2)).getTag() == EMPTY && board.getPiece(new Spot(firstRow, 3)).getTag() == EMPTY) {
+                spots[spotsIndexCounter++] = new Spot( firstRow, Constants.LONG_CASTLE_KING_DEST );
             }
         }
 

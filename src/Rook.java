@@ -11,10 +11,10 @@ public class Rook extends Piece {
      * @param spot - the rook's position
      * @return all leagal spots the rook can move to
      */
-    public int[][] getValidSpots(int[] spot) {
-        Piece[][] board = this.state.getRawBoard(); // get the board as an array in order to not write state.getRawBoard() everytime
-        int[][] spots = new int[14][]; // the array that will be returned in the end
-        int[] checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
+    public Spot[] getValidSpots(Spot spot) {
+        Board board = this.state; // get the board as an array in order to not write state.getRawBoard() everytime
+        Spot[] spots = new Spot[14]; // the array that will be returned in the end
+        Spot checkedSpot; // temporary variable, used to temporeraly hold the spot that the program will check next
 
         int indexCounter = 0;
         for (int axis : Constants.AXIS_ITER) {
@@ -24,13 +24,13 @@ public class Rook extends Piece {
                 while (breakCondition) {
                     try {
                         if (axis == 0) { // check the correct spot for horizontal axis
-                            checkedSpot = new int[] { spot[0], spot[1] + spotCounter * direction };
+                            checkedSpot = new Spot( spot.getRow(), spot.getColumn() + spotCounter * direction );
                         } else { // check the correct spot for vertical axis
-                            checkedSpot = new int[] { spot[0] + spotCounter * direction, spot[1] };
+                            checkedSpot = new Spot( spot.getRow() + spotCounter * direction, spot.getColumn() );
                         }
-                        if (board[checkedSpot[0]][checkedSpot[1]].getTag() == EMPTY) {
+                        if (board.getPiece(checkedSpot).getTag() == EMPTY) {
                             spots[indexCounter++] = checkedSpot;
-                        } else if (board[checkedSpot[0]][checkedSpot[1]].getTag() == -this.tag) { // if checked spot is foe
+                        } else if (board.getPiece(checkedSpot).getTag() == -this.tag) { // if checked spot is foe
                             spots[indexCounter++] = checkedSpot;
                             breakCondition = false;
                         } else { // if checked spot is the same color as this piece.
@@ -45,5 +45,4 @@ public class Rook extends Piece {
         }
         return spots;
     }
-
 }

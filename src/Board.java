@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 /* board starting state:
 -----------------
@@ -77,11 +76,11 @@ public class Board {
      * @param nextPos  - the desired position of the piece
      * @return - whether the move is legal.
      */
-    public boolean canMoveFromTo(int[] piecePos, int[] nextPos) {
-        int[][] avaliableSpots = rawBoard[piecePos[0]][piecePos[1]].getValidSpots(piecePos);
+    public boolean canMoveFromTo(Spot piecePos, Spot nextPos) {
+        Spot[] avaliableSpots = getPiece(piecePos).getValidSpots(piecePos);
     
-        for (int[] spot : avaliableSpots) {
-            if (Arrays.equals(spot, nextPos)) {
+        for (Spot spot : avaliableSpots) {
+            if (spot.equals_to(nextPos)) {
                 return true;
             }
         }
@@ -94,10 +93,10 @@ public class Board {
      * @param piecePos - the piece's coord to move
      * @param nextPos  - the desired spot
      */
-    public void movePieceFromTo(int[] piecePos, int[] nextPos) {
-        rawBoard[nextPos[0]][nextPos[1]] = rawBoard[piecePos[0]][piecePos[1]]; // moves piece to desired location
-        rawBoard[piecePos[0]][piecePos[1]] = EMPTY_PIECE; // emptys the original spot
-        rawBoard[nextPos[0]][nextPos[1]].moved();
+    public void movePieceFromTo(Spot piecePos, Spot nextPos) {
+        rawBoard[nextPos.getRow()][nextPos.getColumn()] = rawBoard[piecePos.getRow()][piecePos.getColumn()]; // moves piece to desired location
+        rawBoard[piecePos.getRow()][piecePos.getColumn()] = EMPTY_PIECE; // emptys the original spot
+        rawBoard[nextPos.getRow()][nextPos.getColumn()].moved();
     }
 
     /**
@@ -136,6 +135,12 @@ public class Board {
             }
         }
     }
+
+    // ------------------------------------------------
+    public Piece getPiece(Spot spot){
+        return rawBoard[spot.getRow()][spot.getColumn()];
+    }
+    // ------------------------------------------------
 
     public int getTurnCounter() {
         return this.turnCounter;
