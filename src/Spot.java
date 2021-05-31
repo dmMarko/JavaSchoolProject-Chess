@@ -3,7 +3,7 @@
  */
 public class Spot {
 
-     /**
+    /**
      * the row of the point. must be between 0 to 7
      */
     private int row;
@@ -13,7 +13,7 @@ public class Spot {
      */
     private int column;
 
-    public Spot(int row, int column) { 
+    public Spot(int row, int column) {
         // check row between bounds
         setRow(row);
 
@@ -21,29 +21,34 @@ public class Spot {
         setColumn(column);
     }
 
-    public int getRow(){
+    public int getRow() {
         return this.row;
-    } 
+    }
 
-    public int getColumn(){
+    public int getColumn() {
         return this.column;
-    } 
+    }
 
-    public void setRow(int newRow){
-        if (newRow <= 7 && newRow >= 0){
+    public void setRow(int newRow) {
+        if (newRow <= 7 && newRow >= 0) {
             this.row = newRow;
         } else {
-            System.out.println("row " + newRow + " is out of bounds. row between 0 and 7 is needed.");
-            System.exit(0);
+
+            // specifically this exception is needed because it can pass over it when you
+            // encounter out of bounds value in any piece's getValidSpot method.s
+            throw new IndexOutOfBoundsException("row " + newRow + " is out of bounds. row between 0 and 7 is needed.");
         }
     }
 
-    public void setColumn(int newColumn){
-        if (newColumn <= 7 && newColumn >= 0){
+    public void setColumn(int newColumn) {
+        if (newColumn <= 7 && newColumn >= 0) {
             this.column = newColumn;
         } else {
-            System.out.println("column " + newColumn + " is out of bounds. column between 0 and 7 is needed.");
-            System.exit(0);
+
+            // specifically this exception is needed because it can pass over it when you
+            // encounter out of bounds value in any piece's getValidSpot method.
+            throw new IndexOutOfBoundsException(
+                    "column " + newColumn + " is out of bounds. column between 0 and 7 is needed.");
         }
     }
 

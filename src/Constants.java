@@ -19,8 +19,8 @@ public class Constants {
             + "In order to move, you have to write the location of the piece you want to move and the location of the square you want to move it to in the following way: file rank - file rank  examples: \n"
             + "a1-a8/e4-g5/h4-g3 \n"
             + "You can always resign by typing \"resign\" or offer/accept a draw by typing \"draw\" \n"; // the rules of
-                                                                                                       // the game
-  
+                                                                                                         // the game
+
     public static final int WHITE_FIRST_ROW = 7;
     public static final int BLACK_FIRST_ROW = 0;
 

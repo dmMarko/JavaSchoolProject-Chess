@@ -78,15 +78,15 @@ public class Board {
      */
     public boolean canMoveFromTo(Spot piecePos, Spot nextPos) {
         Spot[] avaliableSpots = getPiece(piecePos).getValidSpots(piecePos);
-    
-        for (Spot spot : avaliableSpots) {
-            if (spot.equals_to(nextPos)) {
+
+        for (Spot spot : avaliableSpots) { // shrink the array to avoid null values. see
+            if (spot != null && spot.equals_to(nextPos)) {
                 return true;
             }
         }
         return false;
     }
-    
+
     /**
      * moves a piece to a location in the board.
      * 
@@ -94,7 +94,10 @@ public class Board {
      * @param nextPos  - the desired spot
      */
     public void movePieceFromTo(Spot piecePos, Spot nextPos) {
-        rawBoard[nextPos.getRow()][nextPos.getColumn()] = rawBoard[piecePos.getRow()][piecePos.getColumn()]; // moves piece to desired location
+        rawBoard[nextPos.getRow()][nextPos.getColumn()] = rawBoard[piecePos.getRow()][piecePos.getColumn()]; // moves
+                                                                                                             // piece to
+                                                                                                             // desired
+                                                                                                             // location
         rawBoard[piecePos.getRow()][piecePos.getColumn()] = EMPTY_PIECE; // emptys the original spot
         rawBoard[nextPos.getRow()][nextPos.getColumn()].moved();
     }
@@ -108,7 +111,8 @@ public class Board {
     public boolean didWin(int turn) {
         boolean found_king = false;
         // if turn is white search for black king, and vice versa
-        String symbol = (turn == Piece.WHITE) ? Character.toString(King.KING_SYMBOL).toLowerCase() : Character.toString(King.KING_SYMBOL).toUpperCase();
+        String symbol = (turn == Piece.WHITE) ? Character.toString(King.KING_SYMBOL).toLowerCase()
+                : Character.toString(King.KING_SYMBOL).toUpperCase();
 
         // iterate through the board and check every piece
         for (Piece[] row : rawBoard) {
@@ -126,10 +130,10 @@ public class Board {
     /**
      * when a pawn reaches the end of the board, it gets promoted to a queen
      */
-    public void promote(){
-        for (int row : new int[]{Constants.BLACK_FIRST_ROW, Constants.WHITE_FIRST_ROW}){ //check both sides
-            for (int column = 0; column < 8; column++){ //check all columns in each side
-                if (rawBoard[row][column] instanceof Pawn){ 
+    public void promote() {
+        for (int row : new int[] { Constants.BLACK_FIRST_ROW, Constants.WHITE_FIRST_ROW }) { // check both sides
+            for (int column = 0; column < 8; column++) { // check all columns in each side
+                if (rawBoard[row][column] instanceof Pawn) {
                     rawBoard[row][column] = new Queen(rawBoard[row][column].getTag(), this); // make the pawn a queen
                 }
             }
@@ -137,7 +141,7 @@ public class Board {
     }
 
     // ------------------------------------------------
-    public Piece getPiece(Spot spot){
+    public Piece getPiece(Spot spot) {
         return rawBoard[spot.getRow()][spot.getColumn()];
     }
     // ------------------------------------------------

@@ -48,7 +48,7 @@ public class App {
         String rawInput; // the variable that will get the raw input, used to enable the user to enter
                          // non move commands
         Spot[] input; // the variable that will contain the input, it should be a 2x2 2d array (two
-                       // spots)
+                      // spots)
 
         // loop until the user input is syntax-valid and rules-valid
         boolean input_valid;
@@ -110,13 +110,13 @@ public class App {
 
             // if trying to do castle long
             if (input[1][1] == Constants.LONG_CASTLE_KING_DEST) {
-                gameBoard.movePieceFromTo(new Spot( firstRow, Constants.QUEENSIDE_ROOK_COLUMN ),
-                        new Spot( firstRow, Constants.LONG_CASTLE_ROOK_DEST ));
+                gameBoard.movePieceFromTo(new Spot(firstRow, Constants.QUEENSIDE_ROOK_COLUMN),
+                        new Spot(firstRow, Constants.LONG_CASTLE_ROOK_DEST));
 
                 // if trying to do castle short
             } else if (input[1][1] == Constants.SHORT_CASTLE_KING_DEST) {
-                gameBoard.movePieceFromTo(new Spot( firstRow, Constants.KINGSIDE_ROOK_COLUMN ),
-                        new Spot( firstRow, Constants.SHORT_CASTLE_ROOK_DEST ));
+                gameBoard.movePieceFromTo(new Spot(firstRow, Constants.KINGSIDE_ROOK_COLUMN),
+                        new Spot(firstRow, Constants.SHORT_CASTLE_ROOK_DEST));
 
             }
         }
